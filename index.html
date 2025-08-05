@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Countdown</title>
+    <style>
+      body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+      #countdown { font-size: 2em; }
+    </style>
+  </head>
+  <body>
+    <h1>Countdown to October 19</h1>
+    <div id="countdown"></div>
+    <script>
+      // Set the target date to October 19, 23:59:59 of the current year
+      const now = new Date();
+      const year = now.getFullYear();
+      const targetDate = new Date(`${year}-10-19T23:59:59`);
+
+      function updateCountdown() {
+        const current = new Date();
+        const diff = targetDate - current;
+        if (diff > 0) {
+          // Countdown is ongoing
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+          document.getElementById("countdown").textContent =
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        } else {
+          // Countdown is over, show "The day"
+          document.getElementById("countdown").textContent = "The day";
+          clearInterval(timer);
+        }
+      }
+
+      updateCountdown(); // Initial call
+      const timer = setInterval(updateCountdown, 1000); // Update every second
+    </script>
+  </body>
+</html>
